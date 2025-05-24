@@ -1,5 +1,7 @@
 # 🥉 SGH x Mastercard Hackathon 2025 – III. miejsce
 
+Backend -> https://github.com/gameslp/SGHxMastercard-Hackathon2025
+
 Autorzy - Jan Ancuta, Maciej Ciesielski, Adam Sulik, Michał Zagajewski
 
 <img width="1469" alt="image" src="https://github.com/user-attachments/assets/d868719c-3bd2-4e88-b1eb-4661aecede42" />
