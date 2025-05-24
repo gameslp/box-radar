@@ -4,6 +4,7 @@ import type { StyleSpecification } from 'maplibre-gl'
 import { H3HexagonLayer } from "@deck.gl/geo-layers"
 import { useState, useRef, useEffect, useMemo, useCallback } from "react"
 import ParcelLockerMarker from './ParcelLockerMarker'
+import { cellToLatLng, getHexagonEdgeLengthAvg } from 'h3-js'
 
 import { bboxFromViewport, getH3IndicesForBB } from "../utils/hex"
 
@@ -68,6 +69,11 @@ interface ParcelLocker {
   opening_hours: string;
 }
 
+interface HexData {
+  h3Index: string;
+  score?: number;
+}
+
 interface HexMapProps {
   selectedH3Indice: string | null;
   onHexClick: (selectedH3Indice: string | null) => void;
@@ -87,6 +93,7 @@ const HexMap = ({ selectedH3Indice, onHexClick, viewport, onViewportChange }: He
   })
   const [parcelLockers, setParcelLockers] = useState<ParcelLocker[]>([])
   const [showParcelLockers, setShowParcelLockers] = useState(false)
+  const [hexScores, setHexScores] = useState<Record<string, number>>({})
 
   // Update local viewState when viewport prop changes
   useEffect(() => {
@@ -176,17 +183,18 @@ const HexMap = ({ selectedH3Indice, onHexClick, viewport, onViewportChange }: He
       autoHighlight: true,
       getLineColor: [0, 0, 0],
       getFillColor: (d) => {
-        const isSelected = selectedH3Indice === d
-        return isSelected ? [242, 141, 59, 100] : [0, 0, 0, 1]
+        const isSelected = selectedH3Indice === d;
+        const score = hexScores[d];
+        
+        if (isSelected) return [242, 141, 59, 100];
+        return [0, 0, 0, 20];
       },
-      opacity: 1,
       onClick: (info) => {
-        const isAlreadySelected = selectedH3Indice === info.object
-
+        const isAlreadySelected = selectedH3Indice === info.object;
         if (isAlreadySelected) {
-          onHexClick(null)
+          onHexClick(null);
         } else {
-          onHexClick(info.object)
+          onHexClick(info.object);
         }
       },
     }),

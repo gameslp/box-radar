@@ -48,7 +48,7 @@ const SearchBox = ({ onSearch }: SearchBoxProps) => {
             value={coordinates.longitude}
             onChange={handleInputChange}
             placeholder="np. 21.0122"
-            className="px-3 py-1.5 rounded-lg bg-white border border-orange-200
+            className="px-3 py-1.5 rounded-lg text-black bg-white border border-orange-200
                      focus:outline-none focus:ring-2 focus:ring-orange-500
                      placeholder:text-gray-400"
           />
@@ -63,7 +63,7 @@ const SearchBox = ({ onSearch }: SearchBoxProps) => {
             value={coordinates.latitude}
             onChange={handleInputChange}
             placeholder="np. 52.2297"
-            className="px-3 py-1.5 rounded-lg bg-white border border-orange-200
+            className="px-3 py-1.5 rounded-lg text-black bg-white border border-orange-200
                      focus:outline-none focus:ring-2 focus:ring-orange-500
                      placeholder:text-gray-400"
           />
